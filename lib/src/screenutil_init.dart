@@ -171,15 +171,30 @@ class _ScreenUtilInitState extends State<ScreenUtilInit>
 
     if (mq == null) return const SizedBox.shrink();
 
+    final deviceSize = mq.size;
+    double width;
+    double height;
+    Orientation orientation;
+    if (deviceSize.width < deviceSize.height) {
+      width = deviceSize.width;
+      height = deviceSize.height;
+      orientation = Orientation.portrait;
+    } else {
+      width = deviceSize.height;
+      height = deviceSize.width;
+      orientation = Orientation.landscape;
+    }
+
     return FutureBuilder<void>(
       future: _screenSizeCompleter.future,
       builder: (c, snapshot) {
         ScreenUtil.configure(
-          data: mq,
+          data: mq.copyWith(size: Size(width, height)),
           designSize: widget.designSize,
           splitScreenMode: widget.splitScreenMode,
           minTextAdapt: widget.minTextAdapt,
           fontSizeResolver: widget.fontSizeResolver,
+          orientation: orientation,
         );
 
         if (snapshot.connectionState == ConnectionState.done) {
