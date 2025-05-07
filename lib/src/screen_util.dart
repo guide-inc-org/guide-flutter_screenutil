@@ -188,6 +188,9 @@ class ScreenUtil {
   ///The vertical extent of this size. dp
   double get screenHeight => _data.size.height;
 
+  /// The padding
+  EdgeInsets get padding => _data.padding;
+
   /// 状态栏高度 dp 刘海屏会更高
   /// The offset from the top, in dp
   double get statusBarHeight => _data.padding.top;
